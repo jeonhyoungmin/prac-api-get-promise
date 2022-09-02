@@ -83,20 +83,36 @@
     })
   }
   const root = document.getElementById('root')
+
+let nameArray = [];
+
   promiseGet('https://pokeapi.co/api/v2/pokemon?limit=898/')
   .then(res => {
     const nameArr = []
     for(let i = 0 ; i < res.results.length; i++){
-      nameArr[i] = res.results[i].name
+      // nameArr[i] = res.results[i].name
+      nameArray.push(res.results[i].name)
+      //명령문 
+      // nameArray[nameArray.length] = res.results[i].name;
+
       }
-      console.log(nameArr)
-      root.textContent = nameArr[0]
+      
+      // root.textContent = nameArr[0]
     }
   )
+  // 명령
+  setTimeout(() => {
+    console.log(nameArray);  
+    let a = nameArray[0]
+    root.textContent = a
+  }, 10);
 
-  
-  
+  // console.log(nameArray)
+  // let a = nameArray[0]
+  // console.log(a)
 
+    // console.log(nameArray)
+    // console.log(a)
 
 
   // fetch('https://pokeapi.co/api/v2/pokemon?limit=898/')

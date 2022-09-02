@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <pre id="root"></pre>
+  <script>
+    // const get = (url) => {
+    //   const xhr = new XMLHttpRequest();
+    //   xhr.open('GET', url)
+    //   xhr.send();
+    //   xhr.onload = () => {
+    //     if(xhr.status === 200){
+    //       document.querySelector('pre').textContent = xhr.response
+    //     } else {
+    //       console.log('아니')
+    //     }
+    //   }
+    // }
+    
+    // get('https://pokeapi.co/api/v2/pokemon?limit=898/')
+
+
+
+
+    // const get = (url, successCallback, failureCallback) => {
+    //   const xhr = new XMLHttpRequest();
+    //   xhr.open('GET', url)
+    //   xhr.send();
+    //   xhr.onload = () => {
+    //     if(xhr.status === 200){
+    //       successCallback(JSON.parse(xhr.response));
+    //     } else {
+    //       failureCallback('Error', xhr.status, xhr.statusText)
+    //     }
+    //   }
+    // }
+    
+    // get('https://pokeapi.co/api/v2/pokemon?limit=898/', console.log, console.log)
+
+
+
+
+  // const promiseGet = url => {
+  //   return new Promise((resolve, reject) => {
+  //     const xhr = new XMLHttpRequest();
+  //     xhr.open('GET', url)
+  //     xhr.send();
+  //     xhr.onload = () => {
+  //       if(xhr.status === 200){
+  //         resolve(JSON.parse(xhr.response));
+  //       } else {
+  //         reject(new Error(xhr.status))
+  //       }
+  //     }
+  //   })
+  // }
+  
+  // promiseGet('https://pokeapi.co/api/v2/pokemon?limit=898/')
+  //   .then(res => console.log(res))
+  //   .catch(err => console.log(err))
+  //   .finally(() => console.log('Bye'));
+
+
+
+
+    const promiseGet = url => {
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url)
+      xhr.send();
+      xhr.onload = () => {
+        if(xhr.status === 200){
+          resolve(JSON.parse(xhr.response));
+        } else {
+          reject(new Error(xhr.status))
+        }
+      }
+    })
+  }
+  const root = document.getElementById('root')
+  promiseGet('https://pokeapi.co/api/v2/pokemon?limit=898/')
+  .then(res => {
+    const nameArr = []
+    for(let i = 0 ; i < res.results.length; i++){
+      nameArr[i] = res.results[i].name
+      }
+      console.log(nameArr)
+      root.textContent = nameArr[0]
+    }
+  )
+
+
+
+
+  // fetch('https://pokeapi.co/api/v2/pokemon?limit=898/')
+  //   .then(response => console.log(response))
+  </script>
+</body>
+</html>
